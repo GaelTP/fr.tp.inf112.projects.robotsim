@@ -10,5 +10,7 @@
 	<classpathentry kind="lib" path="libs/jgrapht/lib/jheaps-0.14.jar"/>
 	<classpathentry kind="lib" path="libs/graph.jar"/>
 	<classpathentry kind="lib" path="libs/canvas-viewer.jar" sourcepath="libs/canvas-viewer.jar"/>
+	<classpathentry kind="src" path="demo/src/main/java/com/example/demo"/>
+	<classpathentry excluding="src/|demo/src/main/java/com/example/demo/" kind="src" path=""/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

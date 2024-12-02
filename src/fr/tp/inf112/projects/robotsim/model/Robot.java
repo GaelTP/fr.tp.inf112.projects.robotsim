@@ -117,10 +117,24 @@ public class Robot extends Component {
 	private int moveToNextPathPosition() {
 		final Motion motion = computeMotion();
 		
-		final int displacement = motion == null ? 0 : motion.moveToTarget();
+		final int displacement = motion == null ? 0 : moveToTarget(motion);
 			
 		notifyObservers();
 		
+		return displacement;
+	}
+
+	private synchronized int moveToTarget(Motion motion) {
+		final int xDisplacement = Math.abs(motion.getTargetPosition().getxCoordinate() - motion.getCurrentPosition().getxCoordinate());
+		final int yDisplacement = Math.abs(motion.getTargetPosition().getyCoordinate() - motion.getCurrentPosition().getyCoordinate());
+		final int displacement = (int) Math.round(Math.sqrt(xDisplacement * xDisplacement + yDisplacement * yDisplacement));
+		
+		try {
+			this.setxCoordinate(motion.getTargetPosition().getxCoordinate());
+			this.setyCoordinate(motion.getTargetPosition().getyCoordinate());
+		} catch (Exception ex) {
+			// TODO: handle exception
+		}
 		return displacement;
 	}
 	
@@ -144,9 +158,6 @@ public class Robot extends Component {
 				   										   2,
 				   										   2);
 		if (getFactory().hasMobileComponentAt(shape, this)) {
-			this.nextPosition = nextPosition;
-			
-			return null;
 		}
 
 		this.nextPosition = null;
